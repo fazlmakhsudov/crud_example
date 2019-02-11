@@ -8,7 +8,7 @@
 
     <context-param>
         <param-name>jdbcURL</param-name>
-        <param-value>jdbc:mysql://localhost:3306/bookstore</param-value>
+        <param-value>jdbc:mysql://localhost:3306/store</param-value>
     </context-param>
 
     <context-param>
@@ -22,13 +22,22 @@
     </context-param>
 
     <servlet>
-        <servlet-name>ControllerServlet</servlet-name>
-        <servlet-class>net.codejava.javaee.bookstore.ControllerServlet</servlet-class>
+        <servlet-name>BookServlet</servlet-name>
+        <servlet-class>net.codejava.javaee.bookstore.BookServlet</servlet-class>
     </servlet>
 
     <servlet-mapping>
-        <servlet-name>ControllerServlet</servlet-name>
-        <url-pattern>/</url-pattern>
+        <servlet-name>BookServlet</servlet-name>
+        <url-pattern>/book</url-pattern>
+    </servlet-mapping>
+    <servlet>
+        <servlet-name>UserServlet</servlet-name>
+        <servlet-class>net.codejava.javaee.userstore.UserServlet</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>UserServlet</servlet-name>
+        <url-pattern>/user</url-pattern>
     </servlet-mapping>
 
     <error-page>

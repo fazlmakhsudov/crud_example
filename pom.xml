@@ -5,7 +5,7 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>net.codejava.javaee</groupId>
-    <artifactId>Bookstore</artifactId>
+    <artifactId>Store</artifactId>
     <version>1.0-SNAPSHOT</version>
     <packaging>war</packaging>
     <dependencies>
@@ -33,7 +33,7 @@
         </dependency>
     </dependencies>
     <build>
-        <finalName>Bookstore</finalName>
+        <finalName>Store</finalName>
         <plugins>
             <!-- https://mvnrepository.com/artifact/org.apache.tomcat.maven/tomcat7-maven-plugin/2.2-->
             <plugin>

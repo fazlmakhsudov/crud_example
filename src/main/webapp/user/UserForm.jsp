@@ -9,54 +9,54 @@
     <center>
         <h1>Books Management</h1>
         <h2>
-            <a href="new">Add New Book</a>
+            <a href="user?action=new">Add New User</a>
             &nbsp;&nbsp;&nbsp;
-            <a href="list">List All Books</a>
+            <a href="user?action=list">List All Users</a>
 
         </h2>
     </center>
     <div align="center">
-        <c:if test="${book != null}">
-            <form action="update" method="post">
+        <c:if test="${user != null}">
+            <form action="user?action=update" method="post">
         </c:if>
-        <c:if test="${book == null}">
-            <form action="insert" method="post">
+        <c:if test="${user == null}">
+            <form action="user?action=insert" method="post">
         </c:if>
         <table border="1" cellpadding="5">
             <caption>
                 <h2>
-                    <c:if test="${book != null}">
-                        Edit Book
+                    <c:if test="${user != null}">
+                        Edit User
                     </c:if>
-                    <c:if test="${book == null}">
-                        Add New Book
+                    <c:if test="${user == null}">
+                        Add New User
                     </c:if>
                 </h2>
             </caption>
-                <c:if test="${book != null}">
-                    <input type="hidden" name="id" value="<c:out value='${book.id}' />" />
+                <c:if test="${user != null}">
+                    <input type="hidden" name="id" value="<c:out value='${user.id}' />" />
                 </c:if>
             <tr>
-                <th>Title: </th>
+                <th>Name: </th>
                 <td>
-                    <input type="text" name="title" size="45"
-                            value="<c:out value='${book.title}' />"
+                    <input type="text" name="name" size="45"
+                            value="<c:out value='${user.name}' />"
                         />
                 </td>
             </tr>
             <tr>
-                <th>Author: </th>
+                <th>Password: </th>
                 <td>
-                    <input type="text" name="author" size="45"
-                            value="<c:out value='${book.author}' />"
+                    <input type="text" name="password" size="45"
+                            value="<c:out value='${user.password}' />"
                     />
                 </td>
             </tr>
             <tr>
-                <th>Price: </th>
+                <th>E-mail: </th>
                 <td>
-                    <input type="text" name="price" size="5"
-                            value="<c:out value='${book.price}' />"
+                    <input type="text" name="email" size="45"
+                            value="<c:out value='${user.email}' />"
                     />
                 </td>
             </tr>

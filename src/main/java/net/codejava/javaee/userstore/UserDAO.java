@@ -1,28 +1,16 @@
-package net.codejava.javaee.bookstore;
+package net.codejava.javaee.userstore;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * AbstractDAO.java
- * This DAO class provides CRUD database operations for the table book
- * in the database.
- *
- * @author www.codejava.net
- */
-public class BookDAO {
+public class UserDAO {
     private String jdbcURL;
     private String jdbcUsername;
     private String jdbcPassword;
     private Connection jdbcConnection;
 
-    public BookDAO(String jdbcURL, String jdbcUsername, String jdbcPassword) {
+    public UserDAO(String jdbcURL, String jdbcUsername, String jdbcPassword) {
         this.jdbcURL = jdbcURL;
         this.jdbcUsername = jdbcUsername;
         this.jdbcPassword = jdbcPassword;
@@ -46,25 +34,24 @@ public class BookDAO {
         }
     }
 
-    public boolean insertBook(Book book) throws SQLException {
-        String sql = "INSERT INTO book (title, author, price) VALUES (?, ?, ?)";
+    public boolean insertUser(net.codejava.javaee.userstore.User user) throws SQLException {
+        String sql = "INSERT INTO user (name, password, email) VALUES (?, ?, ?)";
         connect();
 
         PreparedStatement statement = jdbcConnection.prepareStatement(sql);
-        statement.setString(1, book.getTitle());
-        statement.setString(2, book.getAuthor());
-        statement.setFloat(3, book.getPrice());
-
+        statement.setString(1, user.getName());
+        statement.setString(2, user.getPassword());
+        statement.setString(3, user.getEmail());
         boolean rowInserted = statement.executeUpdate() > 0;
         statement.close();
         disconnect();
         return rowInserted;
     }
 
-    public List<Book> listAllUsers() throws SQLException {
-        List<Book> listBook = new ArrayList<>();
+    public List<User> listAllUsers() throws SQLException {
+        List<User> listUsers = new ArrayList<>();
 
-        String sql = "SELECT * FROM book";
+        String sql = "SELECT * FROM user";
 
         connect();
 
@@ -72,13 +59,13 @@ public class BookDAO {
         ResultSet resultSet = statement.executeQuery(sql);
 
         while (resultSet.next()) {
-            int id = resultSet.getInt("book_id");
-            String title = resultSet.getString("title");
-            String author = resultSet.getString("author");
-            float price = resultSet.getFloat("price");
+            int id = resultSet.getInt("user_id");
+            String name = resultSet.getString("name");
+            String password = resultSet.getString("password");
+            String email = resultSet.getString("email");
 
-            Book book = new Book(id, title, author, price);
-            listBook.add(book);
+            User user = new User(id, name, password, email);
+            listUsers.add(user);
         }
 
         resultSet.close();
@@ -86,16 +73,16 @@ public class BookDAO {
 
         disconnect();
 
-        return listBook;
+        return listUsers;
     }
 
-    public boolean deleteBook(Book book) throws SQLException {
-        String sql = "DELETE FROM book where book_id = ?";
+    public boolean deleteUser(User user) throws SQLException {
+        String sql = "DELETE FROM user where user_id = ?";
 
         connect();
 
         PreparedStatement statement = jdbcConnection.prepareStatement(sql);
-        statement.setInt(1, book.getId());
+        statement.setInt(1, user.getId());
 
         boolean rowDeleted = statement.executeUpdate() > 0;
         statement.close();
@@ -103,16 +90,16 @@ public class BookDAO {
         return rowDeleted;
     }
 
-    public boolean updateBook(Book book) throws SQLException {
-        String sql = "UPDATE book SET title = ?, author = ?, price = ?";
-        sql += " WHERE book_id = ?";
+    public boolean updateUser(User user) throws SQLException {
+        String sql = "UPDATE user SET name = ?, password = ?, email = ?";
+        sql += " WHERE user_id = ?";
         connect();
 
         PreparedStatement statement = jdbcConnection.prepareStatement(sql);
-        statement.setString(1, book.getTitle());
-        statement.setString(2, book.getAuthor());
-        statement.setFloat(3, book.getPrice());
-        statement.setInt(4, book.getId());
+        statement.setString(1, user.getName());
+        statement.setString(2, user.getPassword());
+        statement.setString(3, user.getEmail());
+        statement.setInt(4, user.getId());
 
         boolean rowUpdated = statement.executeUpdate() > 0;
         statement.close();
@@ -120,9 +107,9 @@ public class BookDAO {
         return rowUpdated;
     }
 
-    public Book getBook(int id) throws SQLException {
-        Book book = null;
-        String sql = "SELECT * FROM book WHERE book_id = ?";
+    public User getUser(int id) throws SQLException {
+        User user = null;
+        String sql = "SELECT * FROM user WHERE user_id = ?";
 
         connect();
 
@@ -132,16 +119,16 @@ public class BookDAO {
         ResultSet resultSet = statement.executeQuery();
 
         if (resultSet.next()) {
-            String title = resultSet.getString("title");
-            String author = resultSet.getString("author");
-            float price = resultSet.getFloat("price");
+            String name = resultSet.getString("name");
+            String password = resultSet.getString("password");
+            String email = resultSet.getString("email");
 
-            book = new Book(id, title, author, price);
+            user = new User(id, name, password, email);
         }
 
         resultSet.close();
         statement.close();
 
-        return book;
+        return user;
     }
 }
