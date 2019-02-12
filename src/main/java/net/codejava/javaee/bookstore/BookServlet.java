@@ -62,7 +62,7 @@ public class BookServlet extends HttpServlet {
                     listBook(request, response);
                     break;
                 default:
-                    response.sendRedirect("./book/list");
+                    response.sendRedirect("./book");
                     break;
             }
         } catch (SQLException ex) {
@@ -74,13 +74,13 @@ public class BookServlet extends HttpServlet {
             throws SQLException, IOException, ServletException {
         List<Book> listBook = bookDAO.listAllUsers();
         request.setAttribute("listBook", listBook);
-        RequestDispatcher dispatcher = request.getRequestDispatcher("//book/BookList.jsp");
+        RequestDispatcher dispatcher = request.getRequestDispatcher("/book/BookList.jsp");
         dispatcher.forward(request, response);
     }
 
     private void showNewForm(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        RequestDispatcher dispatcher = request.getRequestDispatcher("//book/BookForm.jsp");
+        RequestDispatcher dispatcher = request.getRequestDispatcher("/book/BookForm.jsp");
         dispatcher.forward(request, response);
     }
 
@@ -88,7 +88,7 @@ public class BookServlet extends HttpServlet {
             throws SQLException, ServletException, IOException {
         int id = Integer.parseInt(request.getParameter("id"));
         Book existingBook = bookDAO.getBook(id);
-        RequestDispatcher dispatcher = request.getRequestDispatcher("//book/BookForm.jsp");
+        RequestDispatcher dispatcher = request.getRequestDispatcher("/book/BookForm.jsp");
         request.setAttribute("book", existingBook);
         dispatcher.forward(request, response);
 

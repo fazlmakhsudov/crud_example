@@ -41,7 +41,6 @@ public class UserServlet extends HttpServlet {
 
         String action = request.getParameter("action");
         if (action == null) action = "list";
-        System.out.println(action);
         try {
             switch (action) {
                 case "new":
@@ -62,7 +61,9 @@ public class UserServlet extends HttpServlet {
                 case "list":
                     listUser(request, response);
                     break;
-
+                default:
+                    response.sendRedirect("./user");
+                    break;
             }
         } catch (SQLException ex) {
             throw new ServletException(ex);
@@ -73,13 +74,13 @@ public class UserServlet extends HttpServlet {
             throws SQLException, IOException, ServletException {
         List<User> listUsers = userDAO.listAllUsers();
         request.setAttribute("listUser", listUsers);
-        RequestDispatcher dispatcher = request.getRequestDispatcher("//user/UserList.jsp");
+        RequestDispatcher dispatcher = request.getRequestDispatcher("/user/UserList.jsp");
         dispatcher.forward(request, response);
     }
 
     private void showNewForm(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        RequestDispatcher dispatcher = request.getRequestDispatcher("//user/UserForm.jsp");
+        RequestDispatcher dispatcher = request.getRequestDispatcher("/user/UserForm.jsp");
         dispatcher.forward(request, response);
     }
 
@@ -87,7 +88,7 @@ public class UserServlet extends HttpServlet {
             throws SQLException, ServletException, IOException {
         int id = Integer.parseInt(request.getParameter("id"));
         User existingUser = userDAO.getUser(id);
-        RequestDispatcher dispatcher = request.getRequestDispatcher("//user/UserForm.jsp");
+        RequestDispatcher dispatcher = request.getRequestDispatcher("/user/UserForm.jsp");
         request.setAttribute("user", existingUser);
         dispatcher.forward(request, response);
 
