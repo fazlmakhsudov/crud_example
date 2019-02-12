@@ -22,6 +22,7 @@ public class BookServlet extends HttpServlet {
     private static final long serialVersionUID = 1L;
     private BookDAO bookDAO;
 
+
     public void init() {
         String jdbcURL = getServletContext().getInitParameter("jdbcURL");
         String jdbcUsername = getServletContext().getInitParameter("jdbcUsername");
@@ -62,7 +63,7 @@ public class BookServlet extends HttpServlet {
                     listBook(request, response);
                     break;
                 default:
-                    response.sendRedirect("./book");
+                    response.sendRedirect("/book");
                     break;
             }
         } catch (SQLException ex) {
@@ -102,7 +103,7 @@ public class BookServlet extends HttpServlet {
 
         Book newBook = new Book(title, author, price);
         bookDAO.insertBook(newBook);
-        response.sendRedirect("./book?action=list");
+        response.sendRedirect("http://localhost:8080/Store/book");
     }
 
     private void updateBook(HttpServletRequest request, HttpServletResponse response)
@@ -114,7 +115,7 @@ public class BookServlet extends HttpServlet {
 
         Book book = new Book(id, title, author, price);
         bookDAO.updateBook(book);
-        response.sendRedirect("./book?action=list");
+        response.sendRedirect("http://localhost:8080/Store/book");
     }
 
     private void deleteBook(HttpServletRequest request, HttpServletResponse response)
@@ -123,7 +124,7 @@ public class BookServlet extends HttpServlet {
 
         Book book = new Book(id);
         bookDAO.deleteBook(book);
-        response.sendRedirect("./book?action=list");
+        response.sendRedirect("http://localhost:8080/Store/book");
 
     }
 }

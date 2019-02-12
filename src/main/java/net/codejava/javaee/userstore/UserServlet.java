@@ -62,7 +62,7 @@ public class UserServlet extends HttpServlet {
                     listUser(request, response);
                     break;
                 default:
-                    response.sendRedirect("./user");
+                    response.sendRedirect("/user");
                     break;
             }
         } catch (SQLException ex) {
@@ -101,7 +101,7 @@ public class UserServlet extends HttpServlet {
         String email = request.getParameter("email");
         User newUser = new User(name, password, email);
         userDAO.insertUser(newUser);
-        response.sendRedirect("./user?action=list");
+        response.sendRedirect("http://localhost:8080/Store/user");
     }
 
     private void updateUser(HttpServletRequest request, HttpServletResponse response)
@@ -112,7 +112,7 @@ public class UserServlet extends HttpServlet {
         String email = request.getParameter("email");
         User user = new User(id, name, password, email);
         userDAO.updateUser(user);
-        response.sendRedirect("./user?action=list");
+        response.sendRedirect("http://localhost:8080/Store/user");
     }
 
     private void deleteUser(HttpServletRequest request, HttpServletResponse response)
@@ -121,7 +121,7 @@ public class UserServlet extends HttpServlet {
 
         User user = new User(id);
         userDAO.deleteUser(user);
-        response.sendRedirect("./user?action=list");
+        response.sendRedirect("http://localhost:8080/Store/user");
 
     }
 }
