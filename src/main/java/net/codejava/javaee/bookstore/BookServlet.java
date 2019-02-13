@@ -103,7 +103,7 @@ public class BookServlet extends HttpServlet {
 
         Book newBook = new Book(title, author, price);
         bookDAO.insertBook(newBook);
-        response.sendRedirect("http://localhost:8080/Store/book");
+        response.sendRedirect("/Store/book");
     }
 
     private void updateBook(HttpServletRequest request, HttpServletResponse response)
@@ -115,7 +115,7 @@ public class BookServlet extends HttpServlet {
 
         Book book = new Book(id, title, author, price);
         bookDAO.updateBook(book);
-        response.sendRedirect("http://localhost:8080/Store/book");
+        response.sendRedirect("/Store/book");
     }
 
     private void deleteBook(HttpServletRequest request, HttpServletResponse response)
@@ -124,7 +124,7 @@ public class BookServlet extends HttpServlet {
 
         Book book = new Book(id);
         bookDAO.deleteBook(book);
-        response.sendRedirect("http://localhost:8080/Store/book");
+        response.sendRedirect("/Store/book");
 
     }
 }
